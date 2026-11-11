@@ -131,6 +131,8 @@ body.hzon #top,body.hzon #rail{opacity:0;pointer-events:none}
 .mm h3{margin:0;font-size:16px}.mm p{margin:0;color:var(--dim);font-size:12px;word-break:break-all}.mm textarea{height:110px;resize:none}
 
 body.cl #top>*,body.hzon #top>*,body.zoomed #top>*{pointer-events:none}
+body.disc #bgd,body.disc #bh,body.disc #bf,body.disc #bbag{display:none}
+.pill.bk{background:var(--acc);color:#07131d;border-color:transparent;font-weight:700;opacity:1!important}.pill.bk svg{stroke:#07131d}.r2 .pill.bk{opacity:1}
 .row.r2{gap:5px}.r2 .pill{height:28px;min-width:28px;padding:0 10px;font-size:11px;opacity:.6;background:rgba(18,19,26,.32);border-color:rgba(255,255,255,.05)}
 .r2 .pill.on{opacity:.88}.r2 .pill:active,.r2 .pill:hover{opacity:1}.r2 .pill svg{width:16px;height:16px}
 .hzb{position:absolute;z-index:5;left:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 22px);transition:opacity .25s}
@@ -208,6 +210,7 @@ body.hb #top,body.hb #rail,body.hb #feed,body.hb #grid,body.hb #modal,body.hb #r
 </style></head><body class="hb">
 <header id="top">
  <div class="row">
+  <button class="pill bk" id="bex" hidden><i data-i="back"></i>Back to menu</button><button class="pill bk" id="bkg" hidden></button>
   <button class="pill ic" id="bf" title="Filter & sort"><i data-i="filter"></i><s>▾</s></button>
   <button class="pill ic" id="bz" title="Feed zoom"><i data-i="zoom"></i><em id="zl"></em><s>▾</s></button>
   <button class="pill ic" id="ba" title="Auto-scroll"><i data-i="clock"></i><em id="au"></em><s>▾</s></button>
@@ -219,11 +222,11 @@ body.hb #top,body.hb #rail,body.hb #feed,body.hb #grid,body.hb #modal,body.hb #r
   <button class="pill" id="bp" title="Batch URLs & banks"><i data-i="plus"></i><span id="cnt">0</span></button>
  </div>
  <div class="row r2">
-  <button class="pill on" id="bkg" hidden></button><button class="pill" id="pc" hidden></button><button class="pill" id="px" hidden>✕</button><button class="pill" id="bmd" hidden></button><button class="pill" id="blk" hidden></button><button class="pill" id="be" hidden>Enhance</button><button class="pill" id="bv" hidden>▾</button>
+  <button class="pill" id="pc" hidden></button><button class="pill" id="px" hidden>✕</button><button class="pill" id="bmd" hidden></button><button class="pill" id="blk" hidden></button><button class="pill" id="be" hidden>Enhance</button><button class="pill" id="bv" hidden>▾</button>
   <span class="sp"></span>
   <a class="pill" id="lk" href="#" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none" hidden>link</a>
  </div>
- <div class="row r2" id="pr" hidden><button class="pill on" id="pl">Paste &amp; Link</button><button class="pill" id="pdz" title="Save a copied image or video link, or drop one here"><i data-i="drop"></i>Drop / Save</button><button class="pill" id="psh">Shielded view</button><button class="pill" id="pm" hidden>Main feed</button></div>
+ <div class="row r2" id="pr" hidden><button class="pill bk" id="pb"><i data-i="back"></i>Back</button><span class="lab" id="pcur" style="max-width:34vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span><button class="pill on" id="pl">Paste &amp; Link</button><button class="pill" id="pdz" title="Save a copied image or video link, or drop one here"><i data-i="drop"></i>Drop / Save</button><button class="pill" id="psh">Shielded view</button><button class="pill bk" id="pm" hidden><i data-i="back"></i>Back to menu</button></div>
  <div class="row" id="dr" hidden>
   <button class="pill" data-l="1">1</button><button class="pill" data-l="2">2</button><button class="pill" data-l="3">3</button>
   <span class="lab">Bright</span><button class="pill" id="ed">−</button><span class="lab" id="el">100%</span><button class="pill" id="eu">+</button>
@@ -261,12 +264,12 @@ body.hb #top,body.hb #rail,body.hb #feed,body.hb #grid,body.hb #modal,body.hb #r
    <span class="sp"></span><button class="pill ic" data-act="close" title="Close grid">✕</button>
   </div>
   <div class="row" id="gb2" hidden>
-   <button class="pill" data-act="pback"><i data-i="back"></i>Profiles</button><span class="lab" id="gpn"></span>
+   <button class="pill bk" data-act="pback"><i data-i="back"></i>Profiles</button><span class="lab" id="gpn"></span>
    <a class="pill" id="gpl" href="#" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none" hidden>Visit page</a>
    <button class="pill" data-act="ren">Rename</button><button class="pill" data-act="addm">Add media</button>
   </div>
   <div class="row" id="gbc" hidden>
-   <button class="pill" data-act="cback" title="Back to grid" aria-label="Back to grid"><i data-i="back"></i></button>
+   <button class="pill bk" data-act="cback" title="Back to grid" aria-label="Back to grid"><i data-i="back"></i>Grid</button>
    <span class="seg"><button class="pill" data-act="cs" data-v="1" title="Mosaic">1</button><button class="pill" data-act="cs" data-v="2" title="Collage">2</button><button class="pill" data-act="cs" data-v="3" title="Gallery">3</button></span>
    <span class="seg zc"><button class="pill" data-act="zm" aria-label="Zoom out"><i data-i="minus"></i></button><input type="range" class="scrub" id="gcz" min="60" max="220" value="100" style="width:84px;margin:0 2px"><button class="pill" data-act="zp" aria-label="Zoom in"><i data-i="plus"></i></button></span><span class="lab" id="gczl">100%</span>
    <button class="pill ic" data-act="pan" title="Auto-pan"><i data-i="pan"></i></button>
@@ -294,7 +297,7 @@ body.hb #top,body.hb #rail,body.hb #feed,body.hb #grid,body.hb #modal,body.hb #r
  <div class="row" style="justify-content:space-between;margin-top:0"><h2>Batch URLs</h2><span class="row" style="margin:0"><button class="pill" id="mlock"><i data-i="lock"></i>Lock</button><button class="pill" id="mc">✕</button></span></div>
  <div class="row" id="bkr"><span class="lab">Banks</span><button class="pill bb" data-b="1">1</button><button class="pill bb" data-b="2">2</button><button class="pill bb" data-b="3">3</button><button class="pill bb" data-b="4">4</button><button class="pill bb" data-b="5">5</button><span class="sp"></span><button class="pill" id="bks" title="Save to bank"><i data-i="save"></i></button><button class="pill" id="bkd" title="Delete bank"><i data-i="trash"></i></button></div>
  <div class="row" id="bkp" hidden><span id="bkq" class="lab">Save to bank</span><button class="pill bb" data-t="1">1</button><button class="pill bb" data-t="2">2</button><button class="pill bb" data-t="3">3</button><button class="pill bb" data-t="4">4</button><button class="pill bb" data-t="5">5</button><button class="pill on" id="bka">+ Add</button><button class="pill" id="bko">Overwrite</button><button class="pill" id="bkc" hidden style="color:#ff8d8d">Delete</button><button class="pill" id="bkx">✕</button></div>
- <div class="row tabs"><span class="seg"><button class="pill on" data-tab="paste">Paste</button><button class="pill" data-tab="disc">Discovery <em id="chd">0</em></button><button class="pill" data-tab="unl">Unlinked <em id="chu">0</em></button><button class="pill" data-tab="act">Active <em id="cha">0</em></button></span></div>
+ <div class="row tabs"><span class="seg"><button class="pill on" data-tab="paste">Paste</button><button class="pill" data-tab="disc">Discovery <em id="chd">0</em></button><button class="pill" data-tab="unl">Unlinked <em id="chu">0</em></button><button class="pill" data-tab="act">Active <em id="cha">0</em></button><button class="pill" data-tab="r2">@r2 <em id="chr">0</em></button></span></div>
  <div id="tp-paste">
   <input type="file" id="fi" accept=".txt,.csv,.json,text/plain" hidden>
   <div class="row"><button class="big" id="mi">Import</button><button class="big" id="me">Export</button><button class="big go" id="ms">Start feed</button></div>
@@ -313,6 +316,15 @@ body.hb #top,body.hb #rail,body.hb #feed,body.hb #grid,body.hb #modal,body.hb #r
   <div class="list" id="dlist"></div>
  </div>
  <div id="tp-unl" hidden><p class="lab" style="margin:8px 0">Pages and video posts with no direct video linked yet. Tap Link to attach a video file.</p><div class="list" id="ulist"></div></div>
+ <div id="tp-r2" hidden>
+  <p class="lab" style="margin:8px 0">Your bucket link is saved with your export. File names pasted below are completed with it and held in @r2 until you send them to a profile.</p>
+  <div class="row" style="margin:6px 0;flex-wrap:nowrap"><input id="r2b" placeholder="https://pub-xxxx.r2.dev" autocomplete="off" autocapitalize="off" style="flex:1;min-width:0;background:#0d0e14;color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:9px 10px;font:inherit"><button class="pill on" id="r2s">Save link</button></div>
+  <textarea id="r2t" rows="3" style="width:100%" placeholder="Paste file names or links here, one per line. They are added to @r2 automatically."></textarea>
+  <div class="row"><button class="pill" id="r2p">Paste</button><button class="pill on" id="r2a">Add to @r2</button><span class="sp"></span><span class="lab" id="r2n"></span></div>
+  <div class="row"><button class="pill" id="r2sa">Select all</button><button class="pill" id="r2sn">None</button></div>
+  <div class="row" style="flex-wrap:nowrap"><input id="r2to" list="r2dl" placeholder="Send to profile (new or existing)" autocomplete="off" autocapitalize="off" style="flex:1;min-width:0;background:#0d0e14;color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:9px 10px;font:inherit"><datalist id="r2dl"></datalist><button class="pill on" id="r2go">Send</button></div>
+  <div class="list" id="r2l"></div>
+ </div>
  <div id="tp-act" hidden><input id="asq" style="width:100%;margin-top:8px" placeholder="Search handle or link…"><div class="list" id="alist"></div></div>
 </div></div>
 <div id="mm"></div>
@@ -368,7 +380,7 @@ function profOf(u){if(!u||u.startsWith('data:'))return'local_media';
   if(!ch)ch=host.split('.')[0]||'web';return alias(ch.replace(/[^a-zA-Z0-9_.-]/g,'_').slice(0,28).toLowerCase())}catch(e){return'media_origin'}}
 function resKnown(u){const c=strip(u),k=c.replace(/\/+$/,''),t=TAUGHT[c]||TAUGHT[k];if(t&&isDirect(t))return t;if(isDirect(c))return c;
  try{const x=new URL(c);if(x.hostname.includes('imgur.com')){if(x.pathname.endsWith('.gifv'))return'https://i.imgur.com'+x.pathname.replace(/\.gifv$/i,'.mp4');const q=x.pathname.split('/').filter(Boolean);if(q.length===1&&/^[a-zA-Z0-9]{5,10}$/.test(q[0]))return'https://i.imgur.com/'+q[0]+'.mp4'}}catch(e){}return null}
-const R2='https://pub-2c94d1aa1f3944f8a0d85d6ae75c3c56.r2.dev',r2=n=>R2+'/'+n.replace(/^\/+/,''),MEDIA=/\.(?:mp4|webm|mov|m4v|m3u8|jpe?g|png|gif|webp|avif)(?:\?|#|$)/i;
+let R2='https://pub-2c94d1aa1f3944f8a0d85d6ae75c3c56.r2.dev';const r2=n=>R2+'/'+n.replace(/^\/+/,''),MEDIA=/\.(?:mp4|webm|mov|m4v|m3u8|jpe?g|png|gif|webp|avif)(?:\?|#|$)/i;
 const VPS=[];/* optional allowlist of post-page hosts that carry videos, e.g. ['sitea.com']; empty = any host */
 const NOVP=/(^|\.)(ebay|depop|poshmark|mercari|grailed|wikipedia|wikimedia|github|google|youtube|youtu|vimeo|dailymotion|streamable|tiktok|redgifs|twitch)\./i;
 function isVideoPostPage(u){let x;try{x=new URL(strip(u))}catch(e){return false}
@@ -384,11 +396,11 @@ function classify(u){const l=strip(u).toLowerCase();
  return isDirect(l)?'video':'webpage'}
 const nextSeq=()=>S.items.reduce((m,i)=>Math.max(m,i.seq),0)+1;
 function mk(raw,ch,sess,seq){const k=resKnown(raw),url=k||raw,src=k&&strip(k)!==strip(raw)?strip(raw):'';return{id:'i'+seq,url,source:src,type:k?'video':classify(raw)==='webpage'&&isVideoPostPage(raw)?'video':classify(raw),ch:ch||'',handle:'',seq,sess}}
-function parse(raw){const items=[],extra=[],seen=new Set(),banks={1:[],2:[],3:[],4:[],5:[]},trims={},disc=[],hbc=[],hbd=[];let hbp=null,cfg=null,sec='feed',blank=0,sess=Date.now(),n=nextSeq(),first=false,sub='o';
+function parse(raw){const items=[],extra=[],seen=new Set(),banks={1:[],2:[],3:[],4:[],5:[]},trims={},disc=[],hbc=[],hbd=[],names={};let hbp=null,cfg=null,sec='feed',blank=0,sess=Date.now(),n=nextSeq(),first=false,sub='o';
  const add=(u,ch)=>{u=dash(u);if(!u||bad(u))return;const it=mk(u,ch,sess,n),k=normKey(it.url);if(seen.has(k))return;seen.add(k);n++;items.push(it)};
  for(const l0 of dt(raw).split(/\r?\n/)){const l=l0.trim();
   if(!l){if(sec==='feed'&&first)blank++;else if(sec==='x'&&sub==='o')extra.push('');continue}
-  if(/^#\s*\[?(?:BANK[ _-]?[1-5]|PROFILE_ALIASES|PROFILE_DISCOVERY(?:_LINKS)?|VIDEO_THUMB_TRIMS|APP_SETTINGS|HOUSE_B_CARDS|HOUSE_B_DELETIONS|HOUSE_B_PREFS)\]?/i.test(l)){sec='x';const bm=l.match(/BANK[ _-]?([1-5])/i);sub=bm?'b'+bm[1]:/DISCOVERY/i.test(l)?'dc':/ALIASES/i.test(l)?'al':/THUMB/i.test(l)?'tr':/APP_SETTINGS/i.test(l)?'cf':/HOUSE_B_CARDS/i.test(l)?'hc':/HOUSE_B_DELETIONS/i.test(l)?'hd':/HOUSE_B_PREFS/i.test(l)?'hp':'o';if(sub==='o')extra.push(l);continue}
+  if(/^#\s*\[?(?:BANK[ _-]?[1-5]|PROFILE_ALIASES|PROFILE_DISCOVERY(?:_LINKS)?|VIDEO_THUMB_TRIMS|APP_SETTINGS|HOUSE_B_CARDS|HOUSE_B_DELETIONS|HOUSE_B_PREFS|ITEM_NAMES)\]?/i.test(l)){sec='x';const bm=l.match(/BANK[ _-]?([1-5])/i);sub=bm?'b'+bm[1]:/DISCOVERY/i.test(l)?'dc':/ALIASES/i.test(l)?'al':/THUMB/i.test(l)?'tr':/APP_SETTINGS/i.test(l)?'cf':/HOUSE_B_CARDS/i.test(l)?'hc':/HOUSE_B_DELETIONS/i.test(l)?'hd':/HOUSE_B_PREFS/i.test(l)?'hp':/ITEM_NAMES/i.test(l)?'nm':'o';if(sub==='o')extra.push(l);continue}
   if(/^#\s*\[?ACTIVE FEED/i.test(l)){sec='feed';continue}
   if(sec==='x'){
    if(sub[0]==='b'){if(/^https?:\/\//i.test(l))banks[sub[1]].push(l)}
@@ -396,6 +408,7 @@ function parse(raw){const items=[],extra=[],seen=new Set(),banks={1:[],2:[],3:[]
    else if(sub==='tr'){if(l.includes('|')){const[u,t]=l.split('|').map(s=>s.trim()),[a,b]=(t||'').split(',').map(parseFloat);if(u&&!isNaN(a)&&a>=0)trims[tk(u)]={startSec:a,loopSec:(!isNaN(b)&&b>=2)?b:8.5}}}
    else if(sub==='dc'){if(/^https?:\/\//i.test(l))disc.push(l)}
    else if(sub==='hc'||sub==='hd'||sub==='hp'){try{const x=JSON.parse(l);if(sub==='hc'&&x&&x.url)hbc.push(x);else if(sub==='hd'&&x)hbd.push(x);else if(sub==='hp'&&x&&Array.isArray(x.brands))hbp=x}catch(e){}}
+   else if(sub==='nm'){const k=l.indexOf('|');if(k>0)names[normKey(l.slice(0,k).trim())]=l.slice(k+1).trim()}
    else if(sub==='cf'){try{cfg=JSON.parse(l)}catch(e){}}
    else extra.push(l);
    continue}
@@ -412,9 +425,9 @@ function parse(raw){const items=[],extra=[],seen=new Set(),banks={1:[],2:[],3:[]
    else if(MEDIA.test(c)&&!c.includes('='))cand=r2(c);
    if(cand)add(cand.replace(/&source=https$/i,''),hm?hm[1]:'')}
   }catch(err){console.warn('skipped bad line',err)}}
- items.forEach(i=>i.handle=i.ch?alias(i.ch):profOf(i.source||i.url));
+ items.forEach(i=>{i.handle=i.ch?alias(i.ch):profOf(i.source||i.url);const nn=names[normKey(i.url)];if(nn)i.name=nn});
  return{items,extra,banks,trims,cfg,disc,hbc,hbd,hbp}}
-function applyParsed(p){S.items=p.items;if(p.extra.length)S.extra=p.extra;for(let n=1;n<=5;n++)if(p.banks[n].length){const s=new Set();S.banks[n]=p.banks[n].filter(x=>{const k=normKey(x);if(s.has(k))return false;s.add(k);return true})}Object.assign(TRIMS,p.trims);if((p.hbc&&p.hbc.length)||(p.hbd&&p.hbd.length)||p.hbp){if(p.hbc&&p.hbc.length)HB.cards=p.hbc;if(p.hbd&&p.hbd.length)HB.dels=p.hbd;if(p.hbp)HB.prefs=p.hbp;hbSave();hbRender()}if(p.disc&&p.disc.length)S.disc=[...new Set(p.disc.map(strip))];if(p.cfg){cfgSet(p.cfg);mkUI()}}
+function applyParsed(p){{const old=new Map(S.items.filter(i=>i.name).map(i=>[normKey(i.url),i.name]));p.items.forEach(i=>{if(!i.name&&old.has(normKey(i.url)))i.name=old.get(normKey(i.url))})}S.items=p.items;if(p.extra.length)S.extra=p.extra;for(let n=1;n<=5;n++)if(p.banks[n].length){const s=new Set();S.banks[n]=p.banks[n].filter(x=>{const k=normKey(x);if(s.has(k))return false;s.add(k);return true})}Object.assign(TRIMS,p.trims);if((p.hbc&&p.hbc.length)||(p.hbd&&p.hbd.length)||p.hbp){if(p.hbc&&p.hbc.length)HB.cards=p.hbc;if(p.hbd&&p.hbd.length)HB.dels=p.hbd;if(p.hbp)HB.prefs=p.hbp;hbSave();hbRender()}if(p.disc&&p.disc.length)S.disc=[...new Set(p.disc.map(strip))];if(p.cfg){cfgSet(p.cfg);mkUI()}}
 const lineOf=it=>it.url+(((it.type==='video')||it.ch)&&it.handle?'#profile='+it.handle:'');
 function boxText(){const o=[];let p=null;for(const it of S.items){if(p!==null&&it.sess!==p)o.push('','');p=it.sess;const l=lineOf(it);o.push(S.mask?enc(l):l)}return o.join('\n')}
 function exportText(){const L=['# [ACTIVE FEED URLS — DIRECT MP4s AUTO-SAVED]'];let p=null;
@@ -425,6 +438,7 @@ function exportText(){const L=['# [ACTIVE FEED URLS — DIRECT MP4s AUTO-SAVED]'
  const tr=Object.entries(TRIMS);if(tr.length)L.push('','# [VIDEO_THUMB_TRIMS]',...tr.map(([u,t])=>u+' | '+t.startSec+','+t.loopSec));
  for(let n=1;n<=5;n++)if(S.banks[n].length)L.push('',`# [BANK_${n}]`,...S.banks[n]);
  if(HB.cards.length)L.push('','# [HOUSE_B_CARDS]',...HB.cards.map(c=>JSON.stringify(c)));if(HB.dels.length)L.push('','# [HOUSE_B_DELETIONS]',...HB.dels.map(d=>JSON.stringify(d)));if(HB.prefs)L.push('','# [HOUSE_B_PREFS]',JSON.stringify(HB.prefs));
+ {const nm=S.items.filter(i=>i.name);if(nm.length)L.push('','# [ITEM_NAMES]',...nm.map(i=>strip(i.url)+' | '+i.name.replace(/\|/g,'-')))}
  L.push('','# [APP_SETTINGS]',JSON.stringify(cfgGet()));
  return['~RF1~',...L.map(l=>l.trim()?enc(l):'')].join('\n')}
 const tally=p=>{const c={video:0,image:0,webpage:0};p.items.forEach(i=>c[i.type]++);const bk=Object.values(p.banks||{}).filter(a=>a.length).length;return`${p.items.length} items: ${c.video} video, ${c.image} image, ${c.webpage} page`+(bk?` · ${bk} bank${bk>1?'s':''} loaded`:'')};
@@ -539,11 +553,11 @@ function hud(){const it=V[S.idx],act=S.filter!=='all'||S.sort!=='default'||S.pro
  const h=S.prof||(it&&it.handle);$('#pc').hidden=!h;$('#pc').textContent=h?'@'+h:'';$('#pc').classList.toggle('on',!!S.prof);$('#px').hidden=!S.prof;
  const lk=$('#lk');lk.hidden=!it;if(it)lk.href=(it.source||it.url).split('#')[0];
  setIc($('#rm').firstElementChild.parentNode,S.muted?'muted':'unmuted');
- const isV=it&&it.type==='video',v=isV?feed.querySelector(`.card[data-i="${S.idx}"] video`):null;$('#rk').hidden=!isV;$('#rt').hidden=!isV;if(v)setIc($('#rk'),v.paused?'play':'pause');applyEnh();applyZoom();pageUI(it);$('#bkg').hidden=!FROM;$('#bkg').textContent='← '+(FROM==='collage'?'Collage':'Grid')}
+ const isV=it&&it.type==='video',v=isV?feed.querySelector(`.card[data-i="${S.idx}"] video`):null;$('#rk').hidden=!isV;$('#rt').hidden=!isV;if(v)setIc($('#rk'),v.paused?'play':'pause');applyEnh();applyZoom();pageUI(it);$('#bkg').hidden=!FROM;$('#bkg').innerHTML=svg('back')+(FROM==='collage'?'Collage':'Grid')}
 function clearFilters(){S.filter='all';S.sort='default';S.prof=null;S.idx=0;render()}
 $('#bx').onclick=clearFilters;
 $('#bh').onclick=()=>{if(S.items.length<2)return;const a=[...S.items];for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}S.items=a;S.idx=0;save();setDirty(true);render();toast('Shuffled')};
-$('#pc').onclick=()=>{const it=V[S.idx];if(!it||!it.handle)return;G.prof=it.handle;G.tab='items';FROM='';openGrid()};
+$('#pc').onclick=()=>{const it=V[S.idx];if(S.mode==='disc'||!it||!it.handle)return;G.prof=it.handle;G.tab='items';FROM='';openGrid()};
 $('#px').onclick=()=>{S.prof=null;S.idx=0;render()};
 $('#rp').onclick=()=>go(-1);$('#rn').onclick=()=>go(1);
 $('#rm').onclick=()=>{S.muted=!S.muted;feed.querySelectorAll('video').forEach(v=>v.muted=S.muted);hud()};
@@ -586,8 +600,8 @@ function openModal(){ta.value=boxText();count();bnk();chips();optUI();$('#bkp').
 const closeModal=()=>modal.classList.remove('open');
 const count=()=>{$('#dc').textContent=parse(ta.value).items.length+' URLs'};
 ta.addEventListener('input',count);
-function commit(){S.idx=0;S.prof=null;save();setDirty(true);render()}
-$('#bp').onclick=openModal;$('#mc').onclick=closeModal;modal.addEventListener('pointerdown',e=>{if(e.target===modal)closeModal()});
+function commit(){S.mode='main';S.idx=0;S.prof=null;save();setDirty(true);render()}
+$('#bp').onclick=()=>S.mode==='disc'?exitDisc():openModal();$('#mc').onclick=closeModal;modal.addEventListener('pointerdown',e=>{if(e.target===modal)closeModal()});
 $('#ms').onclick=()=>{const p=post(parse(ta.value));if(!p.items.length){toast('No valid URLs found');return}applyParsed(p);commit();closeModal();toast('Feed started: '+tally(p))};
 $('#ma').onclick=()=>{const p=post(parse(ta.value)),have=new Set(S.items.map(i=>i.url));const add=p.items.filter(i=>!have.has(i.url));
  if(!add.length){toast('Nothing new to add');return}S.items=S.items.concat(add);if(!S.extra.length)S.extra=p.extra;commit();ta.value=boxText();count();toast(`Added ${add.length}`)};
@@ -606,11 +620,11 @@ $('#fi').onchange=async e=>{const f=e.target.files[0];if(!f)return;const p=post(
 const G={open:0,tab:'items',size:'m',prof:null,sort:'default',ebb:0,crawl:0,zoom:'0',col:0,cs:2,cz:100,pan:0,bar:1,blow:{},salt:0,sy:0};
 let FROM='',GL=[],io=null,crawlRaf=0,panRaf=0,ssT=0,cl=0,ca=0,pl=0,px=0,py=0,pdx=1,pdy=1,ctp=0,spy=0,rlT=0,rlN=0;const PLAY=[],TM=new Map();
 const gr=$('#grid'),gs=$('#gs'),gt=$('#gt'),gbar=$('#gbar');
-const cfgGet=()=>({zoom:S.zoom,auto:S.auto,loop:S.loop,rate:S.rate,muted:S.muted,mask:S.mask,enh:S.enh,exp:S.exp,sharp:S.sharp,gsize:G.size,gzoom:G.zoom,gebb:G.ebb?1:0,gcs:G.cs,gcz:G.cz,gsort:G.sort,padj:S.set.off,tmode:S.set.mode,ad:S.set.ad,shuf:S.set.shuf,sniff:S.set.sniff});
+const cfgGet=()=>({zoom:S.zoom,auto:S.auto,loop:S.loop,rate:S.rate,muted:S.muted,mask:S.mask,enh:S.enh,exp:S.exp,sharp:S.sharp,gsize:G.size,gzoom:G.zoom,gebb:G.ebb?1:0,gcs:G.cs,gcz:G.cz,gsort:G.sort,r2base:R2,padj:S.set.off,tmode:S.set.mode,ad:S.set.ad,shuf:S.set.shuf,sniff:S.set.sniff});
 function cfgSet(c){if(!c||typeof c!=='object')return;const n=(v,a,b,d)=>typeof v==='number'&&v>=a&&v<=b?v:d;
  S.zoom=String(c.zoom??S.zoom);S.auto=n(c.auto,0,60,S.auto);S.loop=c.loop!==false;S.rate=RATES.includes(c.rate)?c.rate:1;S.muted=c.muted!==false;S.mask=c.mask!==false;S.enh=n(c.enh,0,3,0);S.exp=n(c.exp,50,200,100);S.sharp=n(c.sharp,-3,6,0);
  G.size=['s','m','l','xl'].includes(c.gsize)?c.gsize:'m';G.zoom=String(c.gzoom??'0');G.ebb=c.gebb?1:0;G.cs=n(c.gcs,1,3,2);G.cz=n(c.gcz,60,220,100);G.sort=['default','new','az'].includes(c.gsort)?c.gsort:'default';
- S.set.off=n(c.padj,0,100,0);S.set.mode=['auto','video','image','webpage'].includes(c.tmode)?c.tmode:'auto';S.set.ad=c.ad!==false;S.set.shuf=!!c.shuf;S.set.sniff=!!c.sniff}
+ if(typeof c.r2base==='string'&&/^https?:\/\/\S{4,300}$/i.test(c.r2base))R2=c.r2base.replace(/\/+$/,'');S.set.off=n(c.padj,0,100,0);S.set.mode=['auto','video','image','webpage'].includes(c.tmode)?c.tmode:'auto';S.set.ad=c.ad!==false;S.set.shuf=!!c.shuf;S.set.sniff=!!c.sniff}
 if(CFG0){cfgSet(CFG0);mkUI()}
 const host=it=>{try{return new URL(strip(it.source||it.url)).hostname.replace(/^www\./,'')}catch(e){return''}};
 const hashr=n=>{n=Math.imul(n^61,0x9e3779b1);n^=n>>>16;n=Math.imul(n,0x85ebca6b);n^=n>>>13;return(n>>>0)/4294967296};
@@ -768,8 +782,8 @@ function ask(o){const m=$('#mm');m.innerHTML=`<div class="mm"><h3>${esc(o.title)
  const inp=$('#mmi');inp.value=o.val||'';m.classList.add('open');setTimeout(()=>inp.focus(),60);
  m.onclick=e=>{const b=e.target.closest('button');if(e.target===m||(b&&b.dataset.c==='0')){m.classList.remove('open');return}if(!b)return;if(b.dataset.x!==undefined){o.extra[+b.dataset.x][1](inp);return}if(b.dataset.c==='1'&&o.onOk(inp.value)!==false)m.classList.remove('open')}}
 const pasteInto=async i=>{try{const t=await navigator.clipboard.readText();i.value=t?(i.tagName==='TEXTAREA'&&i.value?i.value+'\n':'')+t:i.value}catch(e){toast('Clipboard blocked: long-press the box and paste')}};
-function attach(list,hd){const have=new Set(S.items.map(i=>normKey(i.url)));let at=S.items.length;S.items.forEach((x,k)=>{if(x.handle===hd)at=k+1});const sess=(S.items.find(x=>x.handle===hd)||{}).sess||Date.now(),add=[];let seq=nextSeq();
- for(const raw of list){const it=mk(dash(raw),hd,sess,seq);if(bad(it.url))continue;const k=normKey(it.url);if(have.has(k))continue;have.add(k);it.handle=alias(hd);it.seq=seq++;it.id='i'+it.seq;add.push(it)}
+function attach(list,hd,ty){const have=new Set(S.items.map(i=>normKey(i.url)));let at=S.items.length;S.items.forEach((x,k)=>{if(x.handle===hd)at=k+1});const sess=(S.items.find(x=>x.handle===hd)||{}).sess||Date.now(),add=[];let seq=nextSeq();
+ for(const raw of list){const it=mk(dash(raw),hd,sess,seq);if(bad(it.url))continue;const k=normKey(it.url);if(have.has(k))continue;have.add(k);it.handle=alias(hd);if(ty)it.type=ty;it.seq=seq++;it.id='i'+it.seq;add.push(it)}
  if(add.length){S.items.splice(at,0,...add);save();setDirty(true)}return add.length}
 function addMediaModal(hd,done){ask({title:'Add media to @'+hd,desc:'Paste links (images, videos, pages) or bare R2 filenames, one per line.',multi:1,ph:'https://…',ok:'+ Attach to profile',extra:[['Paste',pasteInto]],onOk:t=>{const n=attach(parse(t).items.map(i=>i.url),hd);toast(n?`Added ${n} to @${hd}`:'Nothing new to add');if(n&&done)done();chips()}})}
 function bindVideo(pg,full){full=strip(full);TAUGHT[pg]=TAUGHT[pg.replace(/\/+$/,'')]=full;S.items.forEach(x=>{if(strip(x.url)===pg&&(x.type==='webpage'||(x.type==='video'&&!isDirect(x.url)))){x.source=pg;x.url=full;x.type='video';delete x.stream}});save();setDirty(true);chips()}
@@ -809,7 +823,7 @@ const best=t=>{if(!t)return{u:'',i:null};let i=t.closest?t.closest('img'):null;c
  if(!u){let e=t;for(let d=0;d<4&&e&&e!==document.body;d++,e=e.parentElement){const bg=getComputedStyle(e).backgroundImage;if(bg&&bg!=='none'){const m=bg.match(/url\(["']?([^"')]+)["']?\)/i);if(m&&!m[1].startsWith('data:image/svg')){try{u=new URL(m[1],U).href}catch(x){}break}}}}
  return{u,i}};
 const flash=(u,i)=>{const b=document.createElement('div');b.textContent='✓ Saved to profile';b.style.cssText='position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:2147483647;background:rgba(16,185,129,.96);color:#000;font:700 13px sans-serif;padding:8px 16px;border-radius:20px;transition:opacity .3s';document.body.appendChild(b);if(i){i.style.outline='3px solid #10b981';i.style.outlineOffset='-3px'}setTimeout(()=>{b.style.opacity='0';setTimeout(()=>b.remove(),300)},1400);post(u,'image')};
-document.addEventListener('click',ev=>{try{const a=ev.target&&ev.target.closest?ev.target.closest('a'):null;if(a&&a.getAttribute('target')==='_blank')a.removeAttribute('target');const r=best(ev.target);if(r.u&&/^https?:\/\//i.test(r.u)){ev.preventDefault();ev.stopPropagation();if(ev.stopImmediatePropagation)ev.stopImmediatePropagation();flash(r.u,r.i)}}catch(e){}},true);
+document.addEventListener('click',ev=>{try{const a=ev.target&&ev.target.closest?ev.target.closest('a'):null;if(a&&a.getAttribute('target')==='_blank')a.removeAttribute('target');const r=best(ev.target);if(r.u&&/^https?:\/\//i.test(r.u)){ev.preventDefault();ev.stopPropagation();if(ev.stopImmediatePropagation)ev.stopImmediatePropagation();flash(r.u,r.i)}else{const a2=ev.target&&ev.target.closest?ev.target.closest('a[href]'):null;if(a2){const hr=a2.getAttribute('href')||'';if(hr&&hr.charAt(0)!=='#'&&!/^(?:javascript|mailto|tel):/i.test(hr)){const u=new URL(hr,U).href;ev.preventDefault();ev.stopPropagation();parent.postMessage({type:'RF_NAV',url:u},'*')}}}}catch(e){}},true);
 const dock=()=>{if(!document.body||document.getElementById('rf-dock'))return;const d=document.createElement('div');d.id='rf-dock';d.textContent='Drop an image or link here to save';d.style.cssText='position:fixed;bottom:14px;left:14px;z-index:2147483646;background:rgba(24,24,34,.88);border:1.5px dashed rgba(143,208,255,.7);color:#dbeafe;font:700 12px sans-serif;padding:9px 14px;border-radius:18px;transition:.15s';
  d.addEventListener('dragover',e=>{e.preventDefault();d.style.transform='scale(1.12)';d.style.background='rgba(16,185,129,.92)';d.style.color='#000'});d.addEventListener('dragleave',()=>{d.style.transform='';d.style.background='rgba(24,24,34,.88)';d.style.color='#dbeafe'});
  d.addEventListener('drop',e=>{e.preventDefault();e.stopPropagation();d.style.transform='';const dt=e.dataTransfer;let u=(dt.getData('text/uri-list')||dt.getData('text/plain')||'').split(/\s+/)[0];if(!u){const h=dt.getData('text/html')||'',m=h.match(/src=["']([^"']+)["']/i);if(m)u=m[1]}try{u=new URL(u,U).href}catch(x){}post(u,/\.(?:mp4|webm|m4v|mov|m3u8)(?:\?|#|$)/i.test(u)?'video':'image')});document.body.appendChild(d)};
@@ -828,19 +842,27 @@ function embedUrl(u){try{const x=new URL(u),h=x.hostname.replace(/^www\./,'');le
  if(/vimeo\.com$/.test(h)&&(m=x.pathname.match(/^\/(\d+)/)))return`https://player.vimeo.com/video/${m[1]}?autoplay=1&muted=1`;
  if(h==='streamable.com'&&(m=x.pathname.match(/^\/(?:e\/)?(\w+)/)))return`https://streamable.com/e/${m[1]}?autoplay=1&muted=1`;
  if(/redgifs\.com$/.test(h)&&(m=x.pathname.match(/\/watch\/(\w+)/)))return`https://www.redgifs.com/ifr/${m[1]}`}catch(e){}return u}
-function hydPage(s,it,i){const pg=pageUrl(it),e=esc(pg);
+const PGO=new Map(),NAVC=new Map();const curPage=it=>{const g=PGO.get(it.id);return g?g.stack[g.stack.length-1]:pageUrl(it)};
+function hydPage(s,it,i){const pg=curPage(it),e=esc(pg);
  if(i!==S.idx){s.dataset.pend=1;s.innerHTML=`<div class="wp"><h2 style="margin:0">Webpage</h2><b>${e}</b></div>`;return}
  delete s.dataset.pend;const emb=embedUrl(pg),isEmb=emb!==pg,mode=PSH.get(it.id)||(S.set.ad?'shield':'live'),pre=(isEmb||mode==='shield')?0:S.set.off;
  s.innerHTML=`<iframe class="wf" allow="autoplay; encrypted-media; picture-in-picture; fullscreen; storage-access" referrerpolicy="strict-origin-when-cross-origin" style="${pre?`top:-${pre}vh;height:calc(100% + ${pre}vh);min-height:calc(100dvh + ${pre}vh)`:''}"></iframe><div class="edge"></div>`;
- const f=s.querySelector('iframe');f.src=emb;
+ const f=s.querySelector('iframe');f.src=emb;NAVC.set(it.id,0);f.addEventListener('load',()=>NAVC.set(it.id,(NAVC.get(it.id)||0)+1));
  if(mode==='shield'&&!isEmb)pageHtml(pg).then(html=>{if(!html||!s.dataset.h||V[+s.dataset.i]!==it||!s.contains(f)||(PSH.get(it.id)||'shield')!=='shield')return;
   const g=document.createElement('iframe');g.className='wf';g.setAttribute('sandbox','allow-scripts allow-forms allow-popups');g.setAttribute('allow','autoplay; fullscreen');g.referrerPolicy='no-referrer';g.srcdoc=buildSrcdoc(html,pg);g.addEventListener('load',()=>scrollFrame(g),{once:true});s.replaceChild(g,f)});
  if(S.set.sniff&&!SNIFF[pg])extract({source:pg,url:pg}).then(st=>{if(st){SNIFF[pg]=st;toast('Video found: tap Paste & Link, then Sniffed')}})}
 function saveCap(u,t,pg){const it=V[S.idx],hd=(it&&it.handle)||profOf(pg);const n=attach([u],hd);toast(n?`Saved ${t} to @${alias(hd)}`:'Already saved');chips()}
-addEventListener('message',e=>{const d=e.data;if(!d||d.type!=='REELFLOW_CAPTURE_PROFILE_MEDIA')return;const f=feed.querySelector(`.card[data-i="${S.idx}"] iframe`);if(!f||e.source!==f.contentWindow)return;const u=String(d.mediaUrl||'');if(d.mediaType==='video')saveMedia(u);else saveCap(u,'image',String(d.pageUrl||''))});
-function pageUI(it){const pg=isPageCard(it),vid=it&&it.type==='video'&&(it.source||!isDirect(it.url));
+addEventListener('message',e=>{const d=e.data;if(!d||(d.type!=='REELFLOW_CAPTURE_PROFILE_MEDIA'&&d.type!=='RF_NAV'))return;const f=feed.querySelector(`.card[data-i="${S.idx}"] iframe`);if(!f||e.source!==f.contentWindow)return;
+ if(d.type==='RF_NAV'){const u=String(d.url||'');if(/^https?:\/\//i.test(u))pageNav(u);return}
+ const u=String(d.mediaUrl||'');if(d.mediaType==='video')saveMedia(u);else saveCap(u,'image',String(d.pageUrl||''))});
+function pageNav(url){const it=V[S.idx];if(!it)return;let g=PGO.get(it.id);if(!g){g={stack:[pageUrl(it)]};PGO.set(it.id,g)}if(g.stack[g.stack.length-1]===url)return;g.stack.push(url);if(g.stack.length>30)g.stack.shift();const s=feed.querySelector(`.card[data-i="${S.idx}"]`);dehyd(s);hyd(s,S.idx);sync()}
+$('#pb').onclick=()=>{const it=V[S.idx];if(!it)return;const g=PGO.get(it.id),s=feed.querySelector(`.card[data-i="${S.idx}"]`),f=s&&s.querySelector('iframe');
+ if(g&&g.stack.length>1){g.stack.pop();dehyd(s);hyd(s,S.idx);sync();return}
+ if(f&&!f.hasAttribute('sandbox')&&(NAVC.get(it.id)||0)>1){NAVC.set(it.id,NAVC.get(it.id)-2);try{f.contentWindow.history.back()}catch(x){history.back()}return}
+ toast('This is the first page')};
+function pageUI(it){$('#bex').hidden=S.mode!=='disc';document.body.classList.toggle('disc',S.mode==='disc');const pg=isPageCard(it),vid=it&&it.type==='video'&&(it.source||!isDirect(it.url));
  $('#bmd').hidden=!vid;$('#bmd').innerHTML=pg?svg('play')+'Video':svg('link')+'Page';$('#blk').hidden=!pg;$('#blk').innerHTML=svg(S.lock?'lock':'unlock')+(S.lock?'Locked':'Lock');$('#blk').classList.toggle('on',S.lock);
- $('#pr').hidden=!pg;$('#pm').hidden=S.mode!=='disc';$('#psh').textContent=(it&&(PSH.get(it.id)||(S.set.ad?'shield':'live'))==='shield')?'Shielded view':'Live view';
+ $('#pr').hidden=!pg;$('#pcur').textContent=(pg&&it)?short(curPage(it)):'';$('#pm').hidden=S.mode!=='disc';$('#psh').textContent=(it&&(PSH.get(it.id)||(S.set.ad?'shield':'live'))==='shield')?'Shielded view':'Live view';
  document.body.classList.toggle('lockon',!!(S.lock&&pg));if(!Z.on&&!document.body.classList.contains('hzon'))feed.style.overflowY=(S.lock&&pg)?'hidden':'scroll'}
 $('#bmd').onclick=()=>{const it=V[S.idx];if(!it)return;PM.set(it.id,isPageCard(it)?'video':'page');const s=feed.querySelector(`.card[data-i="${S.idx}"]`);dehyd(s);hyd(s,S.idx);sync()};
 $('#blk').onclick=()=>{S.lock=!S.lock;hud();toast(S.lock?'Page locked: swiping is off until unlocked':'Page unlocked')};
@@ -850,11 +872,12 @@ $('#pdz').onclick=async()=>{let t='';try{t=(await navigator.clipboard.readText()
  if(/^https?:\/\//i.test(t)){saveMedia(t);return}
  ask({title:'Save media link',desc:'Paste an image or video link. A video links to this page and plays in the feed; an image is saved to the profile.',ph:'https://…',ok:'Save',extra:[['Paste',pasteInto]],onOk:v=>{v=v.trim().split(/\s+/)[0];if(!/^https?:\/\//i.test(v)){toast('Paste a full link');return false}saveMedia(v)}})};
 $('#pdz').ondragover=e=>e.preventDefault();$('#pdz').ondrop=e=>{e.preventDefault();const t=(e.dataTransfer.getData('text/uri-list')||e.dataTransfer.getData('text/plain')||'').trim().split(/\s+/)[0];if(/^https?:\/\//i.test(t))saveMedia(t)};
-$('#pm').onclick=()=>{S.mode='main';S.idx=S.mainIdx||0;render();toast('Back to main feed')};
+function exitDisc(){if(S.mode!=='disc')return;S.mode='main';S.idx=S.mainIdx||0;S.lock=false;S.discItems=[];render();openModal();const t=document.querySelector('[data-tab=paste]');t&&t.click();toast('Left discovery. Your main feed is ready to start.')}
+$('#pm').onclick=exitDisc;$('#bex').onclick=exitDisc;
 /* ---------- batch tabs: discovery, unlinked, active feed ---------- */
 function launchDisc(k){if(!S.disc.length)return toast('Save some profile pages first');if(S.mode!=='disc')S.mainIdx=S.idx;S.mode='disc';S.discItems=S.disc.map((u,j)=>({id:'d'+j,url:u,source:'',type:'webpage',ch:'',handle:profOf(u),seq:j,sess:0,disc:1}));S.idx=k||0;closeModal();render()}
 const unlinked=()=>S.items.filter(i=>i.type==='webpage'||(i.type==='video'&&!isDirect(i.url)&&!TAUGHT[strip(i.url)]));
-function chips(){$('#chd').textContent=S.disc.length;$('#chu').textContent=unlinked().length;$('#cha').textContent=S.items.length}
+function chips(){$('#chr').textContent=S.items.reduce((n,i)=>n+(i.handle==='r2'?1:0),0);$('#chd').textContent=S.disc.length;$('#chu').textContent=unlinked().length;$('#cha').textContent=S.items.length}
 const short=u=>{try{const x=new URL(strip(u));return x.hostname.replace(/^www\./,'')+x.pathname.replace(/\/$/,'')}catch(e){return u}};
 function renderDisc(){$('#dlist').innerHTML=S.disc.map((u,k)=>`<div class="li"><div class="t">@${esc(profOf(u))}<small>${esc(u)}</small></div><button data-d="open" data-k="${k}">Open</button><button class="danger" data-d="del" data-k="${k}">✕</button></div>`).join('')||'<p class="lab">No saved profiles yet.</p>';chips()}
 function renderUnl(){const L=unlinked().slice(0,150);$('#ulist').innerHTML=L.map(it=>`<div class="li"><div class="t">@${esc(it.handle)}<small>${esc(short(it.url))}</small></div><button data-u="go" data-id="${it.id}">Go</button><button data-u="link" data-id="${it.id}">Link</button></div>`).join('')||'<p class="lab">Everything is linked.</p>';chips()}
@@ -862,7 +885,7 @@ const ACTN=150;let delArm=null;
 function renderAct(){const q=$('#asq').value.trim().toLowerCase();let L=S.items;if(q)L=L.filter(i=>(i.handle+' '+i.url+' '+(i.source||'')).toLowerCase().includes(q));
  $('#alist').innerHTML=L.slice(0,ACTN).map(it=>`<div class="li"><span class="ico">${svg(it.type==='video'?'play':it.type==='image'?'image':'link')}</span><div class="t">@${esc(it.handle)}<small>${esc(short(it.url))}</small></div><button data-a="go" data-id="${it.id}">Go</button><button class="danger" data-a="del" data-id="${it.id}">Delete</button></div>`).join('')+(L.length>ACTN?`<p class="lab">Showing ${ACTN} of ${L.length}. Search to narrow.</p>`:'')||'<p class="lab">No matches.</p>';chips()}
 function goItem(id){let i=V.findIndex(x=>x.id===id);if(i<0&&S.mode==='main'){S.filter='all';S.sort='default';S.prof=null;V=vis();i=V.findIndex(x=>x.id===id);render()}if(i<0)return toast('Not in the current feed');closeModal();S.idx=i;jump(i,false);sync()}
-document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{const t=b.dataset.tab;document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('on',x===b));['paste','disc','unl','act'].forEach(k=>$('#tp-'+k).hidden=k!==t);if(t==='disc')renderDisc();if(t==='unl')renderUnl();if(t==='act')renderAct()});
+document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{const t=b.dataset.tab;document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('on',x===b));['paste','disc','unl','act','r2'].forEach(k=>$('#tp-'+k).hidden=k!==t);if(t==='r2')renderR2();if(t==='disc')renderDisc();if(t==='unl')renderUnl();if(t==='act')renderAct()});
 $('#asq').addEventListener('input',renderAct);
 $('#dpc').onclick=()=>pasteInto($('#dta'));
 $('#dsv').onclick=()=>{const u=dt($('#dta').value).split(/\s+/).map(strip).filter(t=>/^https?:\/\//i.test(t));if(!u.length)return toast('No page links found');const n0=S.disc.length;S.disc=[...new Set(S.disc.concat(u))];$('#dta').value='';save();setDirty(true);renderDisc();toast(`Saved ${S.disc.length-n0} profile${S.disc.length-n0===1?'':'s'}`)};
@@ -872,6 +895,24 @@ $('#ulist').onclick=e=>{const b=e.target.closest('[data-u]');if(!b)return;const 
 $('#alist').onclick=e=>{const b=e.target.closest('[data-a]');if(!b)return;const id=b.dataset.id;if(b.dataset.a==='go')return goItem(id);
  if(delArm!==id){delArm=id;b.textContent='Confirm?';setTimeout(()=>{if(delArm===id){delArm=null;if(b.isConnected)b.textContent='Delete'}},3000);return}
  delArm=null;S.items=S.items.filter(x=>x.id!==id);save();setDirty(true);if(S.mode==='main'){V=vis();if(S.idx>=V.length)S.idx=0;render()}renderAct();toast('Deleted')};
+/* ---------- @r2 holding cell: bucket link, auto-complete, name, route to a profile ---------- */
+const R2SEL=new Set();
+const r2Items=()=>S.items.filter(i=>i.handle==='r2');
+function renderR2(){$('#r2b').value=R2;const L=r2Items(),pf=new Set();S.items.forEach(i=>{if(i.handle&&i.handle!=='r2')pf.add(i.handle)});
+ $('#r2dl').innerHTML=[...pf].sort().map(x=>`<option value="${esc(x)}">`).join('');[...R2SEL].forEach(id=>{if(!L.some(i=>i.id===id))R2SEL.delete(id)});
+ $('#r2n').textContent=`${L.length} in @r2, ${R2SEL.size} selected`;
+ $('#r2l').innerHTML=L.slice(0,150).map(it=>`<label class="li"><input type="checkbox" data-id="${it.id}" ${R2SEL.has(it.id)?'checked':''}><div class="t">${esc(it.name||it.url.split('/').pop().split('?')[0])}<small>${esc(short(it.url))}</small></div><button data-r="name" data-id="${it.id}">Name</button><button data-r="go" data-id="${it.id}">Go</button></label>`).join('')+(L.length>150?`<p class="lab">Showing 150 of ${L.length}.</p>`:'')||'<p class="lab">@r2 is empty. Paste file names above.</p>';chips()}
+function r2run(){const t=$('#r2t').value;if(!t.trim())return;const list=[];for(const raw of dt(t).split(/\s+/)){const x=raw.trim().replace(/^["']+|["',;]+$/g,'');if(x)list.push(/^https?:\/\//i.test(x)?x:r2(x))}
+ const n=attach(list,'r2','video');$('#r2t').value='';renderR2();toast(n?`Added ${n} to @r2`:'Nothing new to add')}
+$('#r2s').onclick=()=>{const v=$('#r2b').value.trim().replace(/\/+$/,'');if(!/^https?:\/\/\S{4,300}$/i.test(v))return toast('Paste your full bucket link, starting with https://');R2=v;save();setDirty(true);toast('Bucket link saved')};
+$('#r2t').addEventListener('paste',()=>setTimeout(r2run,0));$('#r2a').onclick=r2run;
+$('#r2p').onclick=async()=>{try{$('#r2t').value=(($('#r2t').value?$('#r2t').value+'\n':'')+await navigator.clipboard.readText());r2run()}catch(e){toast('Clipboard blocked: long-press the box and paste')}};
+$('#r2sa').onclick=()=>{r2Items().forEach(i=>R2SEL.add(i.id));renderR2()};$('#r2sn').onclick=()=>{R2SEL.clear();renderR2()};
+$('#r2l').addEventListener('change',e=>{const c=e.target.closest('input[data-id]');if(!c)return;c.checked?R2SEL.add(c.dataset.id):R2SEL.delete(c.dataset.id);$('#r2n').textContent=`${r2Items().length} in @r2, ${R2SEL.size} selected`});
+$('#r2l').addEventListener('click',e=>{const b=e.target.closest('[data-r]');if(!b)return;e.preventDefault();const it=S.items.find(x=>x.id===b.dataset.id);if(!it)return;
+ if(b.dataset.r==='go')goItem(it.id);else ask({title:'Name this video',desc:it.url.split('/').pop(),ph:'Name',val:it.name||'',ok:'Save name',onOk:v=>{it.name=v.trim().slice(0,80);save();setDirty(true);renderR2()}})});
+$('#r2go').onclick=()=>{const to=profNorm($('#r2to').value);if(!to||to==='r2')return toast('Type a profile name to send to');if(!R2SEL.size)return toast('Select videos first');let n=0;
+ S.items.forEach(i=>{if(R2SEL.has(i.id)&&i.handle==='r2'){i.handle=to;i.ch=to;n++}});R2SEL.clear();save();setDirty(true);V=vis();if(!inB&&S.mode==='main')render();renderR2();toast(`Moved ${n} to @${to}`)};
 /* ---------- options ---------- */
 function optUI(){$('#s-off').value=String(S.set.off);$('#s-mode').value=S.set.mode;$('#s-ad').checked=S.set.ad;$('#s-mute').checked=S.muted;$('#s-shuf').checked=S.set.shuf;$('#s-sniff').checked=S.set.sniff}
 $('#s-off').onchange=e=>{S.set.off=+e.target.value;save()};$('#s-mode').onchange=e=>{S.set.mode=e.target.value;save()};
@@ -981,7 +1022,7 @@ let lastAct=Date.now(),actT=0;const ACTEV=['pointerdown','pointermove','touchsta
 function startAct(){lastAct=Date.now();ACTEV.forEach(ev=>addEventListener(ev,bump,{passive:true,capture:true}));actT=setInterval(chk,30000);document.addEventListener('visibilitychange',chk)}
 function stopAct(){ACTEV.forEach(ev=>removeEventListener(ev,bump,{capture:true}));clearInterval(actT);document.removeEventListener('visibilitychange',chk)}
 function enterA(){if(!inB)return;inB=false;hbPanel('');$('#hbm').textContent='';document.body.classList.remove('hb');render();startAct()}
-function enterB(){if(inB)return;stopAct();closeModal();$('#mm').classList.remove('open');closePop();if(G.open)closeGrid();const ss=$('#ss');ss._stop&&ss._stop();
+function enterB(){if(inB)return;if(S.mode==='disc'){S.mode='main';S.idx=S.mainIdx||0;S.discItems=[]}stopAct();closeModal();$('#mm').classList.remove('open');closePop();if(G.open)closeGrid();const ss=$('#ss');ss._stop&&ss._stop();
  document.body.classList.remove('hzon','zoomed','cl');zout();clearTimeout(AT);cancelAnimationFrame(crawlRaf);cancelAnimationFrame(panRaf);
  for(const s of [...HYD])dehyd(s);feed.querySelectorAll('video,iframe').forEach(v=>{try{v.pause&&v.pause();v.removeAttribute('src');v.load&&v.load()}catch(e){}});feed.textContent='';HYD.clear();V=[];
  clearTimeout(svT);saveNow();inB=true;document.body.classList.add('hb');hbRender()}
