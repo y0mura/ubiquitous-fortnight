@@ -348,7 +348,11 @@ function decTok(tok){const p=tok.slice(4),v=[];for(const ch of p){const k=DEC[ch
  let pr=0x5a;const o=new Uint8Array(b.length);
  for(let i=0;i<b.length;i++){const r=b[i],m=((r>>>3)|(r<<5))&255;o[i]=(m^KEY[i%24]^((i*31)&255)^pr)&255;pr=r}
  return new TextDecoder().decode(o)}
-const dt=raw=>(!raw||(!raw.includes('rf1$')&&!raw.includes('~RF1~')))?(raw||''):raw.replace(/^\s*~RF1~\s*$/gm,'').replace(/rf1\$[A-Za-z0-9_-]+/g,decTok);
+const clean=s=>s.length>0&&!/[\u0000-\u0008\u000b-\u001f\u007f\ufffd]/.test(s);
+function decTokSalv(tok){const d=decTok(tok);if(d!==tok&&clean(d))return d;
+ for(let n=tok.length-1;n>=8;n--){if((n-4)%4===1)continue;const q=tok.slice(0,n),dd=decTok(q);if(dd!==q&&clean(dd))return dd+'\n'+tok.slice(n)}return tok}
+const dt=raw=>(!raw||(!raw.includes('rf1$')&&!raw.includes('~RF1~')))?(raw||''):raw.replace(/^\s*~RF1~\s*$/gm,'').replace(/(^|\s)(rf1\$[A-Za-z0-9_-]+)/g,(m,pre,tok)=>pre+decTokSalv(tok));
+const maskConv=(text,on)=>dt(text).split(/\r?\n/).map(l=>l.trim()&&on?enc(l.trim()):l).join('\n');
 /* ---------- state ---------- */
 const S={disc:[],mode:'main',mainIdx:0,discItems:[],lock:false,set:{off:0,mode:'auto',ad:true,shuf:false,sniff:false},zoom:'0',banks:{1:[],2:[],3:[],4:[],5:[]},enh:0,exp:100,sharp:0,enhOpen:false,items:[],extra:[],filter:'all',sort:'default',prof:null,idx:0,muted:true,loop:true,rate:1,auto:0,mask:true,dirty:false};
 const RATES=[1,1.25,1.5,2,.5,.75],AUTO=[0,3,5,8,15,30,1.5,1],FILT=['all','image','video','webpage'],FL={all:'All',image:'Img',video:'Vid',webpage:'Link'},SORT=['default','new','az'],SL={default:'Default',new:'New',az:'A–Z'};
@@ -418,7 +422,7 @@ function parse(raw){const items=[],extra=[],seen=new Set(),banks={1:[],2:[],3:[]
   if(l.includes('|')){const p=l.split('|').map(s=>s.trim()).filter(Boolean);
    if(p.length>=2){const v=/^(https?:|data:)/i.test(p[1])?dash(p[1]):(MEDIA.test(p[1])&&!/\s/.test(p[1])?r2(p[1]):'');
     if(v&&isDirect(v)){const pg=strip(p[0]);TAUGHT[pg]=TAUGHT[pg.replace(/\/+$/,'')]=strip(v);add(v,profOf(pg));continue}}}
-  for(const t of l.replace(/%(?=https?:\/\/)/gi,'\n').replace(/(?<!source=)(https?:\/\/)/gi,'\n$1').split(/[\s,;|]+|(?:%20)+|%(?![0-9a-fA-F]{2})/g)){
+  for(const t of l.replace(/%(?=https?:\/\/)/gi,'\n').replace(/(?<!source=)(https?:\/\/)/gi,'\n$1').split(/[\s,;|]+|(?:%20)+(?=https?:\/\/)|%(?![0-9a-fA-F]{2})/g)){
    const hm=t.match(/[#&]profile=([a-zA-Z0-9_.-]+)/i);let c=t.trim().replace(/^%+/,'').replace(/%+$/,'').replace(/[);,>\]"']+$/,'').replace(/[#&]profile=[^&#]*/gi,'');
    let cand='';if(/^(https?:\/\/|data:image\/)/i.test(c))cand=c;
    else if(/^[a-zA-Z0-9-]+\.(?:com|org|net|io|dev|me|co|tv|gg|app|xyz|info|biz|cc|ly|to)\/\S+/i.test(c))cand='https://'+c;
@@ -600,17 +604,18 @@ function openModal(){ta.value=boxText();count();bnk();chips();optUI();$('#bkp').
 const closeModal=()=>modal.classList.remove('open');
 const count=()=>{$('#dc').textContent=parse(ta.value).items.length+' URLs'};
 ta.addEventListener('input',count);
+ta.addEventListener('paste',e=>{const t=(e.clipboardData||window.clipboardData||{getData:()=>''}).getData('text');if(!t)return;e.preventDefault();const add=maskConv(t,S.mask),v=ta.value,s=ta.selectionStart,en=ta.selectionEnd,b4=v.slice(0,s),af=v.slice(en),pre=b4&&!b4.endsWith('\n')?'\n':'',post=af&&!af.startsWith('\n')?'\n':'';ta.value=b4+pre+add+post+af;const c=(b4+pre+add).length;ta.setSelectionRange(c,c);count()});
 function commit(){S.mode='main';S.idx=0;S.prof=null;save();setDirty(true);render()}
 $('#bp').onclick=()=>S.mode==='disc'?exitDisc():openModal();$('#mc').onclick=closeModal;modal.addEventListener('pointerdown',e=>{if(e.target===modal)closeModal()});
 $('#ms').onclick=()=>{const p=post(parse(ta.value));if(!p.items.length){toast('No valid URLs found');return}applyParsed(p);commit();closeModal();toast('Feed started: '+tally(p))};
 $('#ma').onclick=()=>{const p=post(parse(ta.value)),have=new Set(S.items.map(i=>i.url));const add=p.items.filter(i=>!have.has(i.url));
  if(!add.length){toast('Nothing new to add');return}S.items=S.items.concat(add);if(!S.extra.length)S.extra=p.extra;commit();ta.value=boxText();count();toast(`Added ${add.length}`)};
 $('#mp').onclick=async()=>{try{const t=await navigator.clipboard.readText();if(!t.trim())return toast('Clipboard is empty');
- const add=S.mask?t.split(/\r?\n/).map(l=>l.trim()?enc(dt(l)):l).join('\n'):dt(t);ta.value=(ta.value.trim()?ta.value.replace(/\s*$/,'\n'):'')+add;count();toast('Pasted')}catch(e){toast('Clipboard blocked: long-press the box and paste')}};
+ const add=maskConv(t,S.mask);ta.value=(ta.value.trim()?ta.value.replace(/\s*$/,'\n'):'')+add;count();toast('Pasted')}catch(e){toast('Clipboard blocked: long-press the box and paste')}};
 $('#my').onclick=async()=>{try{await navigator.clipboard.writeText(ta.value);toast('Copied')}catch(e){ta.select();document.execCommand('copy');toast('Copied')}};
 $('#mx').onclick=()=>{ta.value='';count()};
 $('#mt').onclick=()=>ta.scrollTo({top:0,behavior:'smooth'});$('#mb').onclick=()=>ta.scrollTo({top:ta.scrollHeight,behavior:'smooth'});
-$('#mk').onclick=()=>{S.mask=!S.mask;ta.value=S.mask?ta.value.split('\n').map(l=>l.trim()?enc(dt(l)):l).join('\n'):dt(ta.value);mkUI();count()};
+$('#mk').onclick=()=>{S.mask=!S.mask;ta.value=maskConv(ta.value,S.mask);mkUI();count()};
 $('#me').onclick=()=>{if(!S.items.length&&!S.extra.length&&!HB.cards.length&&!HB.dels.length)return toast('Nothing to export');const b=new Blob([exportText()],{type:'text/plain'}),a=document.createElement('a');
  a.href=URL.createObjectURL(b);a.download='transcript.txt';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000);setDirty(false);toast('Exported transcript.txt')};
 $('#mi').onclick=()=>$('#fi').click();
@@ -902,7 +907,11 @@ function renderR2(){$('#r2b').value=R2;const L=r2Items(),pf=new Set();S.items.fo
  $('#r2dl').innerHTML=[...pf].sort().map(x=>`<option value="${esc(x)}">`).join('');[...R2SEL].forEach(id=>{if(!L.some(i=>i.id===id))R2SEL.delete(id)});
  $('#r2n').textContent=`${L.length} in @r2, ${R2SEL.size} selected`;
  $('#r2l').innerHTML=L.slice(0,150).map(it=>`<label class="li"><input type="checkbox" data-id="${it.id}" ${R2SEL.has(it.id)?'checked':''}><div class="t">${esc(it.name||it.url.split('/').pop().split('?')[0])}<small>${esc(short(it.url))}</small></div><button data-r="name" data-id="${it.id}">Name</button><button data-r="go" data-id="${it.id}">Go</button></label>`).join('')+(L.length>150?`<p class="lab">Showing 150 of ${L.length}.</p>`:'')||'<p class="lab">@r2 is empty. Paste file names above.</p>';chips()}
-function r2run(){const t=$('#r2t').value;if(!t.trim())return;const list=[];for(const raw of dt(t).split(/\s+/)){const x=raw.trim().replace(/^["']+|["',;]+$/g,'');if(x)list.push(/^https?:\/\//i.test(x)?x:r2(x))}
+function r2run(){const t=$('#r2t').value;if(!t.trim())return;const list=[];
+ for(const line of dt(t).split(/\r?\n/)){const x=line.trim().replace(/^["']+|["',;]+$/g,'');if(!x)continue;
+  if(/^https?:\/\//i.test(x))x.split(/\s+/).forEach(u=>{if(/^https?:\/\//i.test(u))list.push(u)});
+  else if(/^[\w-]+\.r2\.(?:dev|cloudflarestorage\.com)\//i.test(x))list.push('https://'+x);
+  else list.push(r2(x.replace(/[?#].*$/,'').replace(/\s+/g,'%20')))}
  const n=attach(list,'r2','video');$('#r2t').value='';renderR2();toast(n?`Added ${n} to @r2`:'Nothing new to add')}
 $('#r2s').onclick=()=>{const v=$('#r2b').value.trim().replace(/\/+$/,'');if(!/^https?:\/\/\S{4,300}$/i.test(v))return toast('Paste your full bucket link, starting with https://');R2=v;save();setDirty(true);toast('Bucket link saved')};
 $('#r2t').addEventListener('paste',()=>setTimeout(r2run,0));$('#r2a').onclick=r2run;
