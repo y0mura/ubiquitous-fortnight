@@ -204,10 +204,10 @@ body.hb #top,body.hb #rail,body.hb #feed,body.hb #grid,body.hb #modal,body.hb #r
 .av img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.av i{font-style:normal}
 #gpn{display:inline-flex;align-items:center;gap:6px}
 .xb{position:relative}.xb.glow::after{content:'!';position:absolute;top:-5px;right:-3px;min-width:17px;height:17px;border-radius:9px;background:var(--hot);color:#2a1700;font:800 11px/17px system-ui,sans-serif;text-align:center}
-#sr{position:fixed;inset:0;z-index:70;background:rgba(9,9,11,.97);display:none;flex-direction:column;padding:calc(env(safe-area-inset-top,0px) + 10px) 12px 12px}#sr.open{display:flex}body.hb #sr{display:none!important}
+#srch{position:fixed;inset:0;z-index:70;background:rgba(9,9,11,.97);display:none;flex-direction:column;padding:calc(env(safe-area-inset-top,0px) + 10px) 12px 12px}#srch.open{display:flex}body.hb #srch{display:none!important}
 .srh{display:flex;gap:8px}.srh input{flex:1;height:44px;background:#0d0e14;color:var(--ink);border:1px solid var(--line);border-radius:22px;padding:0 16px;font:inherit;user-select:text;-webkit-user-select:text}
 #srp{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}.srp{height:36px;padding:0 12px 0 6px}.srp em{font-style:normal;font-size:10px;padding:1px 6px;border-radius:9px;background:rgba(255,255,255,.14)}
-#sr .list{max-height:none;flex:1}
+#srch .list{max-height:none;flex:1}
 #dl{position:fixed;inset:0;z-index:140;background:rgba(5,6,9,.62);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:16px}#dl.open{display:flex}
 .dlc{width:100%;max-width:440px;max-height:86dvh;overflow:auto;background:#14151d;border:1px solid var(--line);border-radius:22px;padding:16px}.dlc h3{margin:0 0 4px;font-size:16px}.dlc p{margin:0 0 10px;color:var(--dim);font-size:12px}
 .dlc select{background:#0d0e14;color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:9px 10px;font:inherit}
@@ -322,7 +322,7 @@ body.hb #top,body.hb #rail,body.hb #feed,body.hb #grid,body.hb #modal,body.hb #r
  <div id="hbs"><div class="hbsh"></div></div>
 </div>
 <div id="gate"><div class="gcard"><h3>Please enter developer credentials</h3><input id="gu" placeholder="Username" autocomplete="off" autocapitalize="off" spellcheck="false"><input id="gp" type="password" placeholder="Password" autocomplete="off"><div id="ge"></div><div style="display:flex;gap:8px"><button class="hbb" id="gc">Cancel</button><button class="hbb" id="gtg">Show</button><button class="hbb go" id="gsub" style="margin-left:auto">Enter Developer Mode</button></div></div></div>
-<div id="sr"><div class="srh"><input id="sri" placeholder="Search profiles, names and links" autocomplete="off" autocapitalize="off" spellcheck="false"><button class="pill" id="src">Close</button></div><div id="srp"></div><div class="list" id="srl"></div></div>
+<div id="srch"><div class="srh"><input id="sri" placeholder="Search profiles, names and links" autocomplete="off" autocapitalize="off" spellcheck="false"><button class="pill" id="src">Close</button></div><div id="srp"></div><div class="list" id="srl"></div></div>
 <div id="dl"></div>
 <div id="pop"></div>
 <div id="modal"><div class="sheet">
@@ -1021,11 +1021,11 @@ function gridEditAct(a,b){
 function avUrl(h){const k=S.items.length+':'+Object.keys(S.av).length;if(AVK!==k||!AVC){AVC=new Map();for(const i of S.items){if(i.type==='image'&&!AVC.has(i.handle))AVC.set(i.handle,i.url.split('#')[0])}AVK=k}return S.av[h]||AVC.get(h)||''}
 function avHTML(h,sz){const u=avUrl(h),c=[...String(h||'?')].reduce((a,ch)=>(a*31+ch.charCodeAt(0))>>>0,7)%360;return`<span class="av" style="--s:${sz||30}px;--c:${c}">${u?`<img src="${esc(u)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">`:''}<i>${esc(String(h||'?')[0].toUpperCase())}</i></span>`}
 /* ---------- global search with profile suggestions ---------- */
-const sr=$('#sr'),sri=$('#sri');let srT=0;
+const sr=$('#srch'),sri=$('#sri');let srT=0;
 function openSearch(){if(inB||S.mode==='disc')return;sr.classList.add('open');sri.value='';runSearch();setTimeout(()=>sri.focus(),60)}
 const closeSearch=()=>sr.classList.remove('open');
 function runSearch(){const q=sri.value.trim().toLowerCase().replace(/^@/,''),pm=new Map();for(const i of S.items)pm.set(i.handle,(pm.get(i.handle)||0)+1);
- const P=[...pm].filter(([h])=>!q||h.includes(q)).sort((a,b)=>(a[0].startsWith(q)?0:1)-(b[0].startsWith(q)?0:1)||b[1]-a[1]).slice(0,q?8:10);
+ const P=[...pm].filter(([h])=>!q||h.includes(q)).sort((a,b)=>(a[0].startsWith(q)?0:1)-(b[0].startsWith(q)?0:1)||a[0].length-b[0].length||b[1]-a[1]).slice(0,q?8:10);
  $('#srp').innerHTML=P.map(([h,n])=>`<button class="pill srp" data-h="${esc(h)}">${avHTML(h,24)}@${esc(h)}<em>${n}</em></button>`).join('');
  const L=[];if(q){for(const i of S.items){if((i.handle+' '+(i.name||'')+' '+i.url+' '+(i.source||'')).toLowerCase().includes(q)){L.push(i);if(L.length>=40)break}}}
  $('#srl').innerHTML=q?(L.map(it=>`<div class="li">${avHTML(it.handle,30)}<div class="t">@${esc(it.handle)}<small>${it.type} · ${esc(it.name||short(it.url))}</small></div><button data-s="go" data-id="${it.id}">Go</button></div>`).join('')||'<p class="lab">No matches.</p>'):'<p class="lab">Type to search names, links and profiles. Tap a profile to open its grid.</p>'}
